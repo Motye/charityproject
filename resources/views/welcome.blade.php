@@ -76,6 +76,8 @@
         <p>It's also your opportunity to stand with a true hero, young of age and small of stature, but a giant of
             spirit and bravery who inspires us all.</p>
 
+        <p>If you would like to help with Elijah's medical bills, his family has setup a <a href="https://www.gofundme.com/mfvjfppg">GoFundMe</a> page where you can donate.</p>
+
         <p>Thank you.</p>
     </div>
 </div>
