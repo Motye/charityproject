@@ -8354,6 +8354,7 @@ html,
 body {
   background-color: #382559;
   color: #cdcdcd;
+  font-family: "Incised 901 W01 Roman",'Arial','Helvetica',sans-serif;
 }
 
 .project-container {
@@ -8467,7 +8468,8 @@ body {
   /* left-top shdw color: rich black 60% tint; right shdw color: rich black */
 }
 
-.header h1 {
+.header h1,
+.panel-heading h2 {
   color: #fcb53b;
   /* Golden Yellow */
   font-family: 'Incised 901 W01 Bold Condensed','Arial','Helvetica',sans-serif;

@@ -1,27 +1,6 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-    <title>The Midshipman Elijah Dimas Project</title>
-
-    <link rel="stylesheet" href="css/app.css">
-</head>
-<body>
-<div class="container project-container">
-    <header class="header">
-        <div class="row">
-            <div class="col-sm-6">
-                <img src="images/forumheader.png">
-            </div>
-            <div class="col-sm-6 header-vert-center">
-                <h1 class="text-uppercase">The Midshipman Elijah Dimas Project</h1>
-            </div>
-        </div>
-    </header>
-
+@section('content')
     <div>
         <h1 class="text-center text-uppercase">Standing With a Hero</h1>
 
@@ -80,6 +59,5 @@
 
         <p>Thank you.</p>
     </div>
-</div>
-</body>
-</html>
+@endsection
+

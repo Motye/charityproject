@@ -78,6 +78,16 @@ return [
             'prefix' => '',
         ],
 
+        'mongodb' => [
+            'driver' => 'mongodb',
+            'host' => json_decode(env('DB_HOST', '["localhost"]'), true),
+            'port' => env('DB_PORT', 27017),
+            'username' => env('DB_USERNAME', 'forge'),
+            'password' => env('DB_PASSWORD', ''),
+            'database' => env('DB_DATABASE', 'forge'),
+            'options' => json_decode(env('DB_OPTIONS', '{}'), true),
+        ],
+
     ],
 
     /*
