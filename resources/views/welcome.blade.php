@@ -64,56 +64,72 @@
 
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 class="panel-title">How to Bid</h3>
+                <h3 class="panel-title">
+                    @if(time() > strtotime(config('bids.close')))
+                        Bidding has closed
+                    @else
+                        How to Bid</h3>
+                @endif
             </div>
             <div class="panel-body">
-                @if(time() < strtotime(config('bids.open')))
-                    <p>Bidding will open in <span id="countdown"></span> on {{ date('F jS, Y', strtotime(config('bids.open'))) }} and close on
-                        {{ date('F jS, Y', strtotime(config('bids.close'))) }}.</p>
-                @endif
+                @if(time() > strtotime(config('bids.close')))
+                    <p>We're sorry, but bidding has closed. If you would still like to help, please visit Elijah's <a
+                                href="https://www.gofundme.com/mfvjfppg">GoFundMe</a> page where you can make a donation
+                        to help Elijah and his family</p>
+                @else
+                    @if(time() < strtotime(config('bids.open')))
+                        <p>Bidding will open in <span id="countdown"></span>
+                            on {{ date('F jS, Y', strtotime(config('bids.open'))) }} and close on
+                            {{ date('F jS, Y', strtotime(config('bids.close'))) }}.</p>
+                    @endif
 
-                <p>Only whole dollar bids will be accepted. You must confirm your email address to bid. Once bidding has
-                    been closed, the winner will be notified by email. The winning bidder, once notified, will have one
-                    week to donate to Elijah's GoFundMe campaign in an amount equal to or greater than their bid amount.
-                    Once your donation has been confirmed, David Weber will be given your name and email address to be
-                    added the the First Reader's list.</p>
+                    <p>Only whole dollar bids will be accepted. You must confirm your email address to bid. Once bidding
+                        has
+                        been closed, the winner will be notified by email. The winning bidder, once notified, will have
+                        one
+                        week to donate to Elijah's GoFundMe campaign in an amount equal to or greater than their bid
+                        amount.
+                        Once your donation has been confirmed, David Weber will be given your name and email address to
+                        be
+                        added the the First Reader's list.</p>
 
 
-                @if (session('status'))
-                    <div class="alert alert-success">
-                        {{ session('status') }}
-                    </div>
-                @endif
+                    @if (session('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif
 
-                @if (session('error'))
-                    <div class="alert alert-danger">
-                        {{ session('error') }}
-                    </div>
-                @endif
-                {{--Only show bid form if it's past the opening date or skip_date_check is true AND the user has confirmed their email address--}}
-                @if((time() >= strtotime(config('bids.open')) || config('bids.skip_date_check') === true) && \Illuminate\Support\Facades\Auth::user()->confirmed === true)
-                    <p>The current high bid is ${{ number_format($high_bid) }}. You must bid at least
-                        ${{ number_format($high_bid + config('bids.increment')) }}</p>
+                    @if (session('error'))
+                        <div class="alert alert-danger">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+                    {{--Only show bid form if it's past the opening date or skip_date_check is true AND the user has confirmed their email address--}}
+                    @if((time() >= strtotime(config('bids.open')) || config('bids.skip_date_check') === true) && \Illuminate\Support\Facades\Auth::user()->confirmed === true)
+                        <p>The current high bid is ${{ number_format($high_bid) }}. You must bid at least
+                            ${{ number_format($high_bid + config('bids.increment')) }}</p>
 
-                    <div class="well well-sm">
-                        {{ Form::open(['route' => 'bid', 'class' => 'form-horizontal']) }}
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label" for="bid">Enter a bid of at least
-                                ${{ number_format($high_bid + config('bids.increment')) }}</label>
-                            <div class="col-sm-2">
-                                <div class="input-group">
-                                    <span class="input-group-addon">$</span>
-                                    {{ Form::text('bid', $high_bid + config('bids.increment'), ['type' => 'number', 'id' => 'bid', 'class' => 'form-control']) }}
+                        <div class="well well-sm">
+                            {{ Form::open(['route' => 'bid', 'class' => 'form-horizontal']) }}
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label" for="bid">Enter a bid of at least
+                                    ${{ number_format($high_bid + config('bids.increment')) }}</label>
+                                <div class="col-sm-2">
+                                    <div class="input-group">
+                                        <span class="input-group-addon">$</span>
+                                        {{ Form::text('bid', $high_bid + config('bids.increment'), ['type' => 'number', 'id' => 'bid', 'class' => 'form-control']) }}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="text-center">
-                            {{ Form::submit('Place Bid', ['class' => 'btn btn-success']) }}
-                        </div>
+                            <div class="text-center">
+                                {{ Form::submit('Place Bid', ['class' => 'btn btn-success']) }}
+                            </div>
 
-                        {{ Form::close() }}
-                    </div>
+                            {{ Form::close() }}
+                        </div>
+                    @endif
                 @endif
             </div>
 
