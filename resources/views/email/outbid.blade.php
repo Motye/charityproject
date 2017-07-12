@@ -2,7 +2,7 @@
 
 Dear {{ $user->name }},
 
-Your bid in the David Weber First Readers List auction has been beaten!
+{{ config('bids.outbid-msg') }}
 
 @component('mail::button', ['url' => route('home'), 'color' => 'green'])
 Bid Again!
