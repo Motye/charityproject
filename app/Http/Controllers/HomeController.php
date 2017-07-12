@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Mockery\Exception;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
