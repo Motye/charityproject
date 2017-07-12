@@ -7,6 +7,7 @@
             <div>
                 <div class="panel-heading"><h2 class="text-uppercase text-center">Login</h2></div>
                 <div class="panel-body">
+                    <p>Login to bid or check the status of your bid.</p>
                     <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
 

@@ -7,6 +7,7 @@
             <div>
                 <div class="panel-heading"><h2 class="text-uppercase text-center">Register</h2></div>
                 <div class="panel-body">
+                    <p>You must register for an account to be able to place a bid or check the status of your bid.</p>
                     <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 

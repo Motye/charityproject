@@ -40,7 +40,8 @@
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                                 aria-hidden="true">&times;</span>
                     </button>
-                    <strong>You have been out bid!  The current high bid is ${{ number_format($high_bid) }}. Would you like to <a href="#bid-form">bid again</a>?</strong>
+                    <strong>You have been out bid! The current high bid is ${{ number_format($high_bid) }}. Would you
+                        like to <a href="#bid-form">bid again</a>?</strong>
                 </div>
 
             @endif
@@ -164,6 +165,12 @@
                 @endif
             </div>
 
+        </div>
+    @else
+        <div class="panel panel-primary">
+            <div class="panel-body bid">
+                <p>You must register for an account to be able to place a bid or check the status of your bid.</p>
+            </div>
         </div>
     @endif
 
