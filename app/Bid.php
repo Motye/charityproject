@@ -22,4 +22,10 @@ class Bid extends Model
 
         return is_null($highBid) ? config('bids.min') : $highBid;
     }
+
+    public static function getHighBidOwner()
+    {
+        return self::orderBy('bid', 'desc')->first()->bidder;
+    }
+
 }

@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Bid;
+use App\Mail\Outbid;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use Mockery\Exception;
 
 class HomeController extends Controller
 {
@@ -46,9 +48,23 @@ class HomeController extends Controller
         $bid = (int) $request->bid;
 
         if ($bid >= (Bid::getHighBid() + config('bids.increment'))) {
-            Bid::create(['bid' => $bid, 'bidder' => Auth::user()->id]);
+            // Get the current high bidder
+            $highBidder = Bid::getHighBidOwner();
 
-            return redirect('/')->with('status', 'Your bid has been placed');
+            // Instantiate a user so we can let them know they've been outbid
+            $highBidder = User::find($highBidder);
+
+            try {
+                Bid::create(['bid' => $bid, 'bidder' => Auth::user()->id]);
+
+                Mail::to($highBidder)->send(new Outbid($highBidder));
+
+                return redirect('/')->with('status', 'Your bid has been placed');
+
+            } catch (Exception $e) {
+                return redirect('/')->with('error', 'There was a problem placing your bid.  Please try again.');
+            }
+
         }
 
         return redirect('/')->with('error', 'Your bid is not high enough');

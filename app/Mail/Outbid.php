@@ -7,7 +7,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class UserRegistered extends Mailable
+
+class Outbid extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -30,6 +31,6 @@ class UserRegistered extends Mailable
      */
     public function build()
     {
-        return $this->markdown('email.registered')->subject('Please confirm your email address');
+        return $this->markdown('email.outbid')->subject('You have been outbid!');
     }
 }
