@@ -169,7 +169,7 @@
     @else
         <div class="panel panel-primary">
             <div class="panel-body bid">
-                <p>You must register for an account to be able to place a bid or check the status of your bid.</p>
+                <p>You must register for an account or log in to be able to place a bid or check the status of your bid.</p>
             </div>
         </div>
     @endif
