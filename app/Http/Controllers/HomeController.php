@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Bid;
 use Illuminate\Http\Request;
 use App\User;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('welcome', ['high_bid' => Bid::getHighBid()]);
     }
 
     public function confirm_email($userid)
@@ -36,7 +37,21 @@ class HomeController extends Controller
 
             Auth::login($user);
 
-            return redirect('/');
+            return redirect('/')->with('status', 'Your email address has been confirmed');
         }
+    }
+
+    public function placeBid(Request $request)
+    {
+        $bid = (int) $request->bid;
+
+        if ($bid > (Bid::getHighBid() + config('bids.increment'))) {
+            Bid::create(['bid' => $bid, 'bidder' => Auth::user()->id]);
+
+            return redirect('/')->with('status', 'Your bid has been placed');
+        }
+
+        return redirect('/')->with('error', 'Your bid is not high enough');
+
     }
 }

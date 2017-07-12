@@ -11,12 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/confirm/{userid}', 'HomeController@confirm_email')->name('confirm');
+
+Route::post('/bid', 'HomeController@placeBid')->name('bid');

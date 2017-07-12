@@ -8496,3 +8496,8 @@ body {
   float: right;
 }
 
+.panel-body {
+  color: #000000;
+  font-family: "Incised 901 W01 Roman",'Arial','Helvetica',sans-serif;
+}
+

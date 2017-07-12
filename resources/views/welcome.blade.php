@@ -17,7 +17,7 @@
             debilitating bone cancer) at the age of 7 and given only two weeks to live. Here he is, two years later,
             defying the odds and fighting on in a way too few of us could ever hope to emulate.</p>
 
-        <img class="elijah img-responsive" alt="Elijah reading OSB" src="images/elijah.jpg" />
+        <img class="elijah img-responsive" alt="Elijah reading OSB" src="images/elijah.jpg"/>
         <p>32 cycles of chemotherapy. 15 surgical procedures. Over 70 tumors at initial diagnosis. In the two weeks
             from when they were all eliminated through aggressive chemotherapy, 9 of them stubbornly returned before
             he could undergo stem cell transplant therapy.</p>
@@ -55,9 +55,100 @@
         <p>It's also your opportunity to stand with a true hero, young of age and small of stature, but a giant of
             spirit and bravery who inspires us all.</p>
 
-        <p>If you would like to help with Elijah's medical bills, his family has setup a <a href="https://www.gofundme.com/mfvjfppg">GoFundMe</a> page where you can donate.</p>
+        <p>If you would like to help with Elijah's medical bills, his family has setup a <a
+                    href="https://www.gofundme.com/mfvjfppg">GoFundMe</a> page where you can donate.</p>
 
         <p>Thank you.</p>
     </div>
+    @if(\Illuminate\Support\Facades\Auth::check())
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">How to Bid</h3>
+            </div>
+            <div class="panel-body">
+                <p>Bidding will open on August 1, 2017 and close on August 15, 2017. Only whole dollar bids will be
+                    accepted. You must confirm your email address to bid. Once bidding has been closed, the winner will
+                    be notified by email. The winning bidder, once notified, will have one week to donate to Elijah's
+                    GoFundMe campaign in an amount equal to or greater than their bid amount. Once your donation has
+                    been confirmed, David Weber will be given your name and email address to be added the the First
+                    Reader's list.</p>
+                <p>Bidding will open in <span id="countdown"></span></p>
+
+                <p>The current high bid is ${{ number_format($high_bid) }}.  You must bid at least ${{ number_format($high_bid + config('bids.increment')) }}</p>
+
+                @if (session('status'))
+                    <div class="alert alert-success">
+                        {{ session('status') }}
+                    </div>
+                @endif
+
+                @if (session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
+                <div class="well well-sm">
+                    {{ Form::open(['route' => 'bid', 'class' => 'form-horizontal']) }}
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="bid">Enter a bid of at least ${{ number_format($high_bid + 1) }}</label>
+                        <div class="col-sm-2">
+                            <div class="input-group">
+                                <span class="input-group-addon">$</span>
+                                {{ Form::text('bid', $high_bid + 1, ['type' => 'number', 'id' => 'bid', 'class' => 'form-control']) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        {{ Form::submit('Place Bid', ['class' => 'btn btn-success']) }}
+                    </div>
+
+                    {{ Form::close() }}
+                </div>
+
+            </div>
+
+        </div>
+    @endif
+
+    <script>
+        CountDownTimer('08/01/2017 00:01 AM', 'countdown');
+
+        function CountDownTimer(dt, id) {
+            var end = new Date(dt);
+
+            var _second = 1000;
+            var _minute = _second * 60;
+            var _hour = _minute * 60;
+            var _day = _hour * 24;
+            var timer;
+
+            function showRemaining() {
+                var now = new Date();
+                var distance = end - now;
+                if (distance < 0) {
+
+                    clearInterval(timer);
+                    document.getElementById(id).innerHTML = '';
+
+                    return;
+                }
+                var days = Math.floor(distance / _day);
+                var hours = Math.floor((distance % _day) / _hour);
+                var minutes = Math.floor((distance % _hour) / _minute);
+                var seconds = Math.floor((distance % _minute) / _second);
+
+                document.getElementById(id).innerHTML = days + ' days ';
+                document.getElementById(id).innerHTML += hours + ' hrs ';
+                document.getElementById(id).innerHTML += minutes + ' mins ';
+                document.getElementById(id).innerHTML += seconds + ' secs';
+            }
+
+            timer = setInterval(showRemaining, 1000);
+        }
+
+    </script>
 @endsection
 
