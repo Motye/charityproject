@@ -31,6 +31,6 @@ class UserRegistered extends Mailable
      */
     public function build()
     {
-        return $this->markdown('email.registered');
+        return $this->markdown('email.registered')->subject('Please confirm your email address');
     }
 }
