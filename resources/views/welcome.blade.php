@@ -71,7 +71,7 @@
                         How to Bid</h3>
                 @endif
             </div>
-            <div class="panel-body">
+            <div class="panel-body bids">
                 @if(time() > strtotime(config('bids.close')))
                     <p>We're sorry, but bidding has closed. If you would still like to help, please visit Elijah's <a
                                 href="https://www.gofundme.com/mfvjfppg">GoFundMe</a> page where you can make a donation
