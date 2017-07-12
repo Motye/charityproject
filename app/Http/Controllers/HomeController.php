@@ -45,7 +45,7 @@ class HomeController extends Controller
     {
         $bid = (int) $request->bid;
 
-        if ($bid > (Bid::getHighBid() + config('bids.increment'))) {
+        if ($bid >= (Bid::getHighBid() + config('bids.increment'))) {
             Bid::create(['bid' => $bid, 'bidder' => Auth::user()->id]);
 
             return redirect('/')->with('status', 'Your bid has been placed');
