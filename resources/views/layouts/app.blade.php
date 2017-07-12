@@ -58,7 +58,14 @@
             </div>
         </header>
         @yield('content')
+        <footer>
+            <p>Copyright &copy; 2008 &ndash; {!! date('Y') !!} The Royal Manticoran Navy: The Official Honor Harrington Fan
+                Association,
+                Inc. Some Rights Reserved.
+                Honor Harrington and all related materials are &copy; David Weber.</p>
+        </footer>
     </div>
+
 </div>
 
 <!-- Scripts -->
