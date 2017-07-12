@@ -18,3 +18,7 @@ Auth::routes();
 Route::get('/confirm/{userid}', 'HomeController@confirm_email')->name('confirm');
 
 Route::post('/bid', 'HomeController@placeBid')->name('bid');
+
+Route::get('/registered', function() {
+    return redirect('/')->with('status', 'Thank you for registering.  Check your email for instructions on how to confirm your email address so that you may bid.');
+});

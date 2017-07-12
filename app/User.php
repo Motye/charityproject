@@ -14,8 +14,10 @@ use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 /**
  * App\User
  *
- * @property-read mixed $id
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read mixed
+ *                    $id
+ * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[]
+ *                $notifications
  * @mixin \Eloquent
  */
 class User extends Model implements
@@ -31,7 +33,10 @@ class User extends Model implements
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'confirmed',
+        'name',
+        'email',
+        'password',
+        'confirmed',
     ];
 
     /**
@@ -40,6 +45,23 @@ class User extends Model implements
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
     ];
+
+    public function hasHighBid()
+    {
+        $myBid = 0;
+
+        if ($this->numberOfBids() > 0) {
+            $myBid = Bid::where('bidder', $this->id)->max('bid');
+        }
+
+        return $myBid == Bid::getHighBid() ? true : false;
+    }
+
+    public function numberOfBids()
+    {
+        return count(Bid::where('bidder', $this->id)->get());
+    }
 }

@@ -2,6 +2,50 @@
 
 @section('content')
     <div>
+        <br/>
+        @if (session('status'))
+            <div class="alert alert-success alert-dismissable" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                {{ session('status') }}
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissable" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @if(Auth::check() && Auth::user()->confirmed === true)
+            @if(Auth::user()->numberOfBids() === 0)
+                <div class="alert alert-success alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span>
+                    </button>
+                    Would you like to <a href="#bid-form">place a bid</a>?
+                </div>
+
+            @elseif(Auth::user()->hasHighBid())
+                <div class="alert alert-success alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Congratulations! You currently have the high bid!</strong>
+                </div>
+            @else
+                <div class="alert alert-danger alert-dismissable" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>You have been out bid!  The current high bid is ${{ number_format($high_bid) }}. Would you like to <a href="#bid-form">bid again</a>?</strong>
+                </div>
+
+            @endif
+        @endif
+
         <h1 class="text-center text-uppercase">Standing With a Hero</h1>
 
         <p>Elijah Dimas (HMS Implacable the Sante Fe chapter of The Royal Manticoran Navy, the Official Honor
@@ -23,7 +67,8 @@
             he could undergo stem cell transplant therapy.</p>
 
         <p>Elijah Dimas has every reason to be down, depressed, and angry at the world. Instead, he insists on
-            visiting hospitals the very place he should reasonably hate! during the holidays to cheer up other
+            visiting hospitals &mdash; the very place he should reasonably hate! &mdash; during the holidays to cheer up
+            other
             children! He is always smiling, always positive, and goes out of his way to make his own challenges
             easier on his family, friends, and supporters. He wants to live, and he wants to dedicate his life to
             helping others as a child life specialist.</p>
@@ -60,9 +105,9 @@
 
         <p>Thank you.</p>
     </div>
-    @if(\Illuminate\Support\Facades\Auth::check())
+    @if(Auth::check())
 
-        <div class="panel panel-primary">
+        <div class="panel panel-primary" id="bid-form">
             <div class="panel-heading">
                 <h3 class="panel-title">
                     @if(time() > strtotime(config('bids.close')))
@@ -83,30 +128,16 @@
                             {{ date('F jS, Y', strtotime(config('bids.close'))) }}.</p>
                     @endif
 
-                    <p>Only whole dollar bids will be accepted. You must confirm your email address to bid. Once bidding
-                        has
-                        been closed, the winner will be notified by email. The winning bidder, once notified, will have
-                        one
-                        week to donate to Elijah's GoFundMe campaign in an amount equal to or greater than their bid
-                        amount.
-                        Once your donation has been confirmed, David Weber will be given your name and email address to
-                        be
-                        added the the First Reader's list.</p>
+                    <p>Only whole dollar bids will be accepted. @if(Auth::user()->confirmed === false)You must confirm
+                        your email address to bid.
+                        @endif
+                        Once bidding has been closed, the winner will be notified by email. The winning bidder, once
+                        notified, will have one week to donate to Elijah's GoFundMe campaign in an amount equal to or
+                        greater than their bid amount. Once your donation has been confirmed, David Weber will be given
+                        your name and email address to be added the the First Reader's list.</p>
 
-
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    @if (session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif
                     {{--Only show bid form if it's past the opening date or skip_date_check is true AND the user has confirmed their email address--}}
-                    @if((time() >= strtotime(config('bids.open')) || config('bids.skip_date_check') === true) && \Illuminate\Support\Facades\Auth::user()->confirmed === true)
+                    @if((time() >= strtotime(config('bids.open')) || config('bids.skip_date_check') === true) && Auth::user()->confirmed === true)
                         <p>The current high bid is ${{ number_format($high_bid) }}. You must bid at least
                             ${{ number_format($high_bid + config('bids.increment')) }}</p>
 
