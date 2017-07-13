@@ -19,12 +19,12 @@
         <header class="header">
             <div class="row">
                 <div class="col-sm-6">
-                    <img src="{{ asset('images/forumheader.png') }}">
+                    <img src="{{ asset('images/forumheader.png') }}" class="img-responsive">
                 </div>
                 <div class="col-sm-6 header-vert-center">
                     <h1 class="text-uppercase">The Midshipman Elijah Dimas Project</h1>
                 </div>
-                <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                <div>
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @if (Auth::guest())

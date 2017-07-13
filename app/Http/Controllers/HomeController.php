@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Auth;
 use Mockery\Exception;
 use Illuminate\Support\Facades\Mail;
 
+/**
+ * Class HomeController
+ * @package App\Http\Controllers
+ *
+ * @mixin \Eloquent
+ */
 class HomeController extends Controller
 {
     /**
@@ -46,7 +52,7 @@ class HomeController extends Controller
 
     public function placeBid(Request $request)
     {
-        $bid = (int) $request->bid;
+        $bid = (int)$request->bid;
 
         if ($bid >= (Bid::getHighBid() + config('bids.increment'))) {
             // Get the current high bidder
