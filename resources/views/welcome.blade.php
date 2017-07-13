@@ -19,7 +19,7 @@
             </div>
         @endif
 
-        @if((time() >= strtotime(config('bids.open')) || config('bids.skip_date_check') === true) && (Auth::user()->confirmed === true && Auth::check()))
+        @if(Auth::check() && (time() >= strtotime(config('bids.open')) || config('bids.skip_date_check') === true) && Auth::user()->confirmed === true)
             @if(Auth::user()->numberOfBids() === 0)
                 <div class="alert alert-success alert-dismissable" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
