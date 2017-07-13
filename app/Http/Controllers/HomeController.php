@@ -58,7 +58,9 @@ class HomeController extends Controller
             try {
                 Bid::create(['bid' => $bid, 'bidder' => Auth::user()->id]);
 
-                Mail::to($highBidder)->send(new Outbid($highBidder));
+                if (!is_null($highBidder)) {
+                    Mail::to($highBidder)->send(new Outbid($highBidder));
+                }
 
                 return redirect('/')->with('status', 'Your bid has been placed');
 

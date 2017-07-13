@@ -25,7 +25,9 @@ class Bid extends Model
 
     public static function getHighBidOwner()
     {
-        return self::orderBy('bid', 'desc')->first()->bidder;
+        $highBid = self::orderBy('bid', 'desc')->first();
+
+        return is_null($highBid) ? null : $highBid->bidder;
     }
 
 }
