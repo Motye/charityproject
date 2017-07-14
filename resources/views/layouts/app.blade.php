@@ -16,15 +16,17 @@
 <body>
 <div id="app">
     <div class="container project-container">
-        <header class="header">
-            <div class="row">
-                <div class="col-sm-6">
-                    <img src="{{ asset('images/forumheader.png') }}" class="img-responsive">
+        <nav class="navbar navbar-default navbar-inverse navbar-fixed-top" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
                 </div>
-                <div class="col-sm-6 header-vert-center">
-                    <h1 class="text-uppercase">The Midshipman Elijah Dimas Project</h1>
-                </div>
-                <div>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
@@ -54,6 +56,16 @@
                             </li>
                         @endif
                     </ul>
+                </div>
+            </div>
+        </nav>
+        <header class="header">
+            <div class="row">
+                <div class="col-sm-6">
+                    <img src="{{ asset('images/forumheader.png') }}" class="img-responsive">
+                </div>
+                <div class="col-sm-6 header-vert-center">
+                    <h1 class="text-uppercase text-center">{{ config('app.name', 'Laravel') }}</h1>
                 </div>
             </div>
         </header>

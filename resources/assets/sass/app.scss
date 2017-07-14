@@ -12,6 +12,7 @@ html, body {
   background-color: #382559;
   color: #cdcdcd;
   font-family: "Incised 901 W01 Roman",'Arial','Helvetica',sans-serif;
+  padding-top: 25px;
 }
 .project-container {
   padding-right: 15px;
@@ -123,6 +124,10 @@ html, body {
 .header h1, .panel-heading h2 {
   color: #fcb53b; /* Golden Yellow */
   font-family: 'Incised 901 W01 Bold Condensed','Arial','Helvetica',sans-serif;
+}
+
+.golden {
+  color: #fcb53b;
 }
 
 .header-vert-center {
