@@ -105,8 +105,10 @@
             <p class="golden">Bidding will open in <span id="countdown"></span>
                 on {{ date('F jS, Y', strtotime(config('bids.open'))) }} and close on
                 {{ date('F jS, Y', strtotime(config('bids.close'))) }}.</p>
-            @else
-            <p class="golden">Bidding has closed.  Thank you for your support.</p>
+        @elseif(time() > strtotime(config('bids.close')))
+            <p class="golden">Bidding has closed. Thank you for your support.</p>
+        @else
+            <p class="golden">Bidding will close on {{ date('F jS, Y', strtotime(config('bids.close'))) }}.</p>
         @endif
 
         <p>If you would like to help with Elijah's medical bills, his family has setup a <a
@@ -171,7 +173,8 @@
     @else
         <div class="panel panel-primary">
             <div class="panel-body bids">
-                <p>You must register for an account or log in to be able to place a bid or check the status of your bid.</p>
+                <p>You must register for an account or log in to be able to place a bid or check the status of your
+                    bid.</p>
             </div>
         </div>
     @endif
