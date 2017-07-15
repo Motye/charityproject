@@ -102,11 +102,11 @@
             spirit and bravery who inspires us all.</p>
 
         @if(time() < strtotime(config('bids.open')))
-            <p>Bidding will open in <span id="countdown"></span>
+            <p class="golden">Bidding will open in <span id="countdown"></span>
                 on {{ date('F jS, Y', strtotime(config('bids.open'))) }} and close on
                 {{ date('F jS, Y', strtotime(config('bids.close'))) }}.</p>
             @else
-            <p>Bidding has closed.  Thank you for your support.</p>
+            <p class="golden">Bidding has closed.  Thank you for your support.</p>
         @endif
 
         <p>If you would like to help with Elijah's medical bills, his family has setup a <a
