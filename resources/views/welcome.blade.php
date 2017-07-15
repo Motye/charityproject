@@ -101,6 +101,14 @@
         <p>It's also your opportunity to stand with a true hero, young of age and small of stature, but a giant of
             spirit and bravery who inspires us all.</p>
 
+        @if(time() < strtotime(config('bids.open')))
+            <p>Bidding will open in <span id="countdown"></span>
+                on {{ date('F jS, Y', strtotime(config('bids.open'))) }} and close on
+                {{ date('F jS, Y', strtotime(config('bids.close'))) }}.</p>
+            @else
+            <p>Bidding has closed.  Thank you for your support.</p>
+        @endif
+
         <p>If you would like to help with Elijah's medical bills, his family has setup a <a
                     href="https://www.gofundme.com/mfvjfppg">GoFundMe</a> page where you can donate.</p>
 
@@ -123,12 +131,6 @@
                                 href="https://www.gofundme.com/mfvjfppg">GoFundMe</a> page where you can make a donation
                         to help Elijah and his family</p>
                 @else
-                    @if(time() < strtotime(config('bids.open')))
-                        <p>Bidding will open in <span id="countdown"></span>
-                            on {{ date('F jS, Y', strtotime(config('bids.open'))) }} and close on
-                            {{ date('F jS, Y', strtotime(config('bids.close'))) }}.</p>
-                    @endif
-
                     <p>Only whole dollar bids will be accepted. @if(Auth::user()->confirmed === false)You must confirm
                         your email address to bid.
                         @endif
